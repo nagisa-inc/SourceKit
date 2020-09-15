@@ -13,7 +13,7 @@ public class Block: SourceRenderable {
 }
 
 public class BlockComment: Block {
-    public override init(_ head: String, open: String = "/** ", close: String = "**/", contents: () -> String) {
-        super.init(head, open: open, close: close, contents: contents)
+    public convenience init(@SourceBuilder _ contents: ()->String){
+        self.init("", open: "/**", close: "**/", contents: contents)
     }
 }
