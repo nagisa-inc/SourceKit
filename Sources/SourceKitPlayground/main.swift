@@ -69,6 +69,14 @@ struct File2: FileRenderable {
         }.default {
             "/// Switch default"
         }
+
+        BlockComment(){
+            If(b1){
+                """
+                AAA
+                """
+            }
+        }
     }
 }
 try engine.render(File2())
