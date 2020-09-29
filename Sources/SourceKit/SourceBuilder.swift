@@ -25,6 +25,6 @@ extension String: SourceRenderable {
 extension Optional: SourceRenderable where Wrapped: SourceRenderable {
     @SourceBuilder
     public var source: String {
-        self ?? ""
+        self?.source ?? ""
     }
 }
