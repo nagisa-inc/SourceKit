@@ -80,3 +80,17 @@ struct File2: FileRenderable {
     }
 }
 try engine.render(File2())
+
+struct File3: StencilFileRenerable {
+    var filepath: String { "File3.swift" }
+    let name: String
+
+    @SourceBuilder
+    var template: String {
+        """
+        /// My name is {{ name }}
+        """
+    }
+}
+
+try engine.render(File3(name: "HogeHoge"))
