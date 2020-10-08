@@ -1,5 +1,6 @@
 import Foundation
 import SourceKit
+import XCAssetKit
 
 //: - Make engine
 let directoryURL = URL(string: "file:///" + #file.split(separator: "/").dropLast().joined(separator: "/") + "/Generated")!
@@ -94,3 +95,4 @@ struct File3: StencilFileRenerable {
 }
 
 try engine.render(File3(name: "HogeHoge"))
+

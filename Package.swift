@@ -8,18 +8,21 @@ let package = Package(
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(name: "SourceKit", targets: ["SourceKit"]),
-        .executable(name: "SourceKitPlayground", targets: ["SourceKit", "SourceKitPlayground"])
+        .library(name: "XCAssetKit", targets: ["XCAssetKit"]),
+        .executable(name: "SourceKitPlayground", targets: ["SourceKit", "XCAssetKit", "SourceKitPlayground"])
     ],
     dependencies: [
         .package(url: "https://github.com/stencilproject/Stencil.git", from: Version(0, 13, 0)),
         .package(url: "https://github.com/nicklockwood/SwiftFormat.git", from: "0.44.13"),
-        .package(url: "https://github.com/yonaskolb/SwagGen.git", from: "4.3.0"),
     ],
     targets: [
         .target(
             name: "SourceKit",
             dependencies: ["Stencil", "SwiftFormat"],
             exclude: ["SourceKit/Template/Source.swift"]),
-        .target(name: "SourceKitPlayground", dependencies: ["SourceKit"], exclude: ["SourceKitPlayground/Generated"]),
+        .target(name: "XCAssetKit"),
+        .target(name: "SourceKitPlayground",
+                dependencies: ["SourceKit", "XCAssetKit"],
+                exclude: ["SourceKitPlayground/Generated"]),
     ]
 )
