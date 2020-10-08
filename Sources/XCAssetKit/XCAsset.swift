@@ -28,7 +28,7 @@ internal extension FileManager {
 
 public struct XCAsset {
     var info: XCAssetInfo
-    var items: [XCAssetItem]
+    public var items: [XCAssetItem]
 
     public init(_ path: String) throws {
         guard fileManager.isDirectory(atPath: path) else {
