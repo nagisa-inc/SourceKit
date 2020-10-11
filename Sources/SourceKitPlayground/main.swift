@@ -1,6 +1,7 @@
 import Foundation
 import SourceKit
 import XCAssetKit
+import StringsFileKit
 
 //: - Make engine
 let directoryURL = URL(string: "file:///" + #file.split(separator: "/").dropLast().joined(separator: "/") + "/Generated")!
