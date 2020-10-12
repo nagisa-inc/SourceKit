@@ -74,11 +74,13 @@ public enum XCAssetItem {
 
     public struct Image {
         public let name: String
+        public let resourcePath: String
 
         init(path: String) throws {
             guard let name = path.split(separator: "/").last?.replacingOccurrences(of: ".imageset", with: "") else {
                 throw XCAssetKitError.invalidImage
             }
+            self.resourcePath = path
             self.name = name
         }
     }
@@ -115,11 +117,13 @@ public enum XCAssetItem {
     }
     public struct Color {
         public let name: String
+        public let resourcePath: String
 
         init(path: String) throws {
             guard let name = path.split(separator: "/").last?.replacingOccurrences(of: ".colorset", with: "") else {
                 throw XCAssetKitError.invalidDirectory
             }
+            self.resourcePath = path
             self.name = String(name)
         }
     }
