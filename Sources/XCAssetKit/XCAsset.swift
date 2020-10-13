@@ -46,7 +46,7 @@ public struct XCAsset {
             .compactMap({ (subPath) -> XCAssetItem? in
                 let nextPath = "\(path)/\(subPath)"
                 if fileManager.isDirectory(atPath: nextPath) {
-                    return try XCAssetItem(nextPath)
+                    return try XCAssetItem(nextPath, resourcePath: subPath)
                 } else {
                     return nil
                 }
@@ -59,37 +59,26 @@ public enum XCAssetItem {
     case image(Image)
     case color(Color)
 
-    init(_ path: String) throws {
+    init(_ path: String, resourcePath: String) throws {
         guard fileManager.isDirectory(atPath: path) else {
             throw XCAssetKitError.fileNotFound(path)
         }
         if path.hasSuffix(".imageset") {
-            self = .image(try Image(path: path))
+            self = .image(try Image(path: path, resourcePath: resourcePath))
         } else if path.hasSuffix(".colorset") {
-            self = .color(try Color(path: path))
+            self = .color(try Color(path: path, resourcePath: resourcePath))
         } else {
-            self = .directory(try Directory(path: path))
+            self = .directory(try Directory(path: path, resourcePath: resourcePath))
         }
     }
 
-    public struct Image {
-        public let name: String
-        public let resourcePath: String
-
-        init(path: String) throws {
-            guard let name = path.split(separator: "/").last?.replacingOccurrences(of: ".imageset", with: "") else {
-                throw XCAssetKitError.invalidImage
-            }
-            self.resourcePath = path
-            self.name = name
-        }
-    }
     public struct Directory {
         public let name: String
         public let providesNameSpace: Bool
         public let items: [XCAssetItem]
+        public let resourcePath: String
 
-        init(path: String) throws {
+        init(path: String, resourcePath: String) throws {
             guard let name = path.split(separator: "/").last else {
                 throw XCAssetKitError.invalidDirectory
             }
@@ -103,27 +92,40 @@ public enum XCAssetItem {
             }
             self.providesNameSpace = providesNameSpace
             self.name = String(name)
+            self.resourcePath = resourcePath
 
             self.items = try fileManager.contentsOfDirectory(atPath: path)
                 .compactMap({ (subPath) -> XCAssetItem? in
                     let nextPath = "\(path)/\(subPath)"
                     if fileManager.isDirectory(atPath: nextPath) {
-                        return try XCAssetItem(nextPath)
+                        return try XCAssetItem(nextPath, resourcePath: "\(resourcePath)/\(subPath)")
                     } else {
                         return nil
                     }
                 })
         }
     }
+    public struct Image {
+        public let name: String
+        public let resourcePath: String
+
+        init(path: String, resourcePath: String) throws {
+            guard let name = path.split(separator: "/").last?.replacingOccurrences(of: ".imageset", with: "") else {
+                throw XCAssetKitError.invalidImage
+            }
+            self.resourcePath = resourcePath.replacingOccurrences(of: ".imageset", with: "")
+            self.name = name
+        }
+    }
     public struct Color {
         public let name: String
         public let resourcePath: String
 
-        init(path: String) throws {
+        init(path: String, resourcePath: String) throws {
             guard let name = path.split(separator: "/").last?.replacingOccurrences(of: ".colorset", with: "") else {
                 throw XCAssetKitError.invalidDirectory
             }
-            self.resourcePath = path
+            self.resourcePath = resourcePath.replacingOccurrences(of: ".colorset", with: "")
             self.name = String(name)
         }
     }
