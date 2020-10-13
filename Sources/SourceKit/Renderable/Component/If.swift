@@ -4,14 +4,14 @@ public struct If: SourceRenderable {
     private let bool: Bool
     public fileprivate(set) var source: String = ""
 
-    public init(_ bool: Bool, @SourceBuilder _ ifValue: () -> String) {
+    public init(_ bool: Bool, @SourceBuilder _ ifValue: () -> SourceRenderable) {
         self.bool = bool
-        self.source = bool ? ifValue() : ""
+        self.source = bool ? ifValue().source : ""
     }
-    public init<Value>(_ value: Value?, @SourceBuilder _ ifValue: (Value) -> String) {
+    public init<Value>(_ value: Value?, @SourceBuilder _ ifValue: (Value) -> SourceRenderable) {
         if let value = value {
             self.bool = true
-            self.source = ifValue(value)
+            self.source = ifValue(value).source
         } else {
             self.bool = false
             self.source = ""
@@ -27,10 +27,10 @@ public struct IfElse: SourceRenderable {
 }
 
 extension If {
-    public func `else`(@SourceBuilder _ elseValue: ()->String) -> IfElse {
-        IfElse(bool ? source : elseValue())
+    public func `else`(@SourceBuilder _ elseValue: ()->SourceRenderable) -> IfElse {
+        IfElse(bool ? source : elseValue().source)
     }
-    public func `elseIf`(_ bool: Bool, @SourceBuilder _ elseValue: ()->String) -> If {
+    public func `elseIf`(_ bool: Bool, @SourceBuilder _ elseValue: ()->SourceRenderable) -> If {
         if self.bool { return self }
         else { return If(bool, elseValue) }
     }

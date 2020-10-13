@@ -9,16 +9,16 @@ public class Switch<Content: Equatable>: SourceRenderable {
         self.content = content
     }
 
-    public func `case`(_ value: Content, @SourceBuilder provider: () -> String) -> Switch {
+    public func `case`(_ value: Content, @SourceBuilder provider: () -> SourceRenderable) -> Switch {
         if value == content {
-            self.source = provider()
+            self.source = provider().source
             self.isFill = true
         }
         return self
     }
-    public func `default`(@SourceBuilder provider: () -> String) -> Switch {
+    public func `default`(@SourceBuilder provider: () -> SourceRenderable) -> Switch {
         if !isFill {
-            self.source = provider()
+            self.source = provider().source
         }
         return self
     }
