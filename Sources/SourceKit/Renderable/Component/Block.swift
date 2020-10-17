@@ -16,4 +16,7 @@ public class BlockComment: Block {
     public convenience init(@SourceBuilder _ contents: ()->String){
         self.init("", open: "/**", close: "**/", contents: contents)
     }
+    public convenience init(_ comment: String){
+        self.init("", open: "/**", close: "**/", contents: comment)
+    }
 }
