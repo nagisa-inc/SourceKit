@@ -17,6 +17,6 @@ public class BlockComment: Block {
         self.init("", open: "/**", close: "**/", contents: contents)
     }
     public convenience init(_ comment: String){
-        self.init("", open: "/**", close: "**/", contents: comment)
+        self.init("", open: "/**", close: "**/", contents: { comment })
     }
 }
