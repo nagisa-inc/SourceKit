@@ -17,6 +17,15 @@ public struct If: SourceRenderable {
             self.source = ""
         }
     }
+    public init<Value: SourceRenderable>(_ value: Value?) {
+        if let value = value {
+            self.bool = true
+            self.source = value.source
+        } else {
+            self.bool = false
+            self.source = ""
+        }
+    }
 }
 
 public struct IfElse: SourceRenderable {
