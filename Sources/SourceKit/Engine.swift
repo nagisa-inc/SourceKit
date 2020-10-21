@@ -19,6 +19,10 @@ public class Engine {
         let dirpath = filepath.path.components(separatedBy: "/").dropLast().joined(separator: "/")
         delegate?.onStartRender(filepath.path)
 
+        if file.reset && FileManager.default.fileExists(atPath: filepath.path) {
+            try FileManager.default.removeItem(at: filepath)
+        }
+
         let body = try parse(file)
         let compressed = file.options.contains(.compress) ? compress(body) : body
         let formatted = file.options.contains(.format) ? try SwiftFormat.format(compressed) : compressed
@@ -50,3 +54,12 @@ private extension Engine {
     }
 }
 
+public extension Engine {
+    /// Remove destination directory
+    /// - Throws:
+    func reset() throws {
+        if FileManager.default.fileExists(atPath: destinationDirectory.path) {
+            try FileManager.default.removeItem(at: destinationDirectory)
+        }
+    }
+}

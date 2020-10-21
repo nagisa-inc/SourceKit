@@ -6,6 +6,7 @@ import StringsFileKit
 //: - Make engine
 let directoryURL = URL(string: "file:///" + #file.split(separator: "/").dropLast().joined(separator: "/") + "/Generated")!
 let engine = Engine(directoryURL)
+try engine.reset()
 
 //: - (Optional) Set Delegate
 class Delegate: EngineDelegate {
@@ -22,6 +23,7 @@ engine.delegate = delegate
 //: - Define file
 struct File1: FileRenderable {
     var filepath: String { "File1.swift" }
+    var reset: Bool { true }
 
     @SourceBuilder
     var source: String {

@@ -16,11 +16,13 @@ public protocol FileRenderable: SourceRenderable {
     var filepath: String { get }
     var options: FileRenderOption { get }
     var subfiles: [FileRenderable] { get }
+    var reset: Bool { get }
 }
 
 extension FileRenderable {
     public var options: FileRenderOption { .default }
     public var subfiles: [FileRenderable] { [] }
+    public var reset: Bool { false }
 }
 
 public struct File: FileRenderable {
@@ -28,12 +30,17 @@ public struct File: FileRenderable {
     public let options: FileRenderOption
     public let subfiles: [FileRenderable]
     public let source: String
+    public var reset: Bool
 
-    public init(filepath: String, options: FileRenderOption = .default, subfiles: [FileRenderable] = [],
-                @SourceBuilder source: () -> String){
+    public init(filepath: String,
+                options: FileRenderOption = .default,
+                subfiles: [FileRenderable] = [],
+                @SourceBuilder source: () -> String,
+                reset: Bool = false ){
         self.filepath = filepath
         self.options = options
         self.subfiles = subfiles
         self.source = source()
+        self.reset = reset
     }
 }
