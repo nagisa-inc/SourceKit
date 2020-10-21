@@ -6,7 +6,7 @@ public protocol SourceRenderable {
 
 public struct Source: SourceRenderable {
     public let source: String
-    public init(@SourceBuilder _ source: () -> String){
-        self.source = source()
+    public init(@SourceBuilder _ source: () -> SourceRenderable){
+        self.source = source().source
     }
 }
