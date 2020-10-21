@@ -6,7 +6,7 @@ import StringsFileKit
 //: - Make engine
 let directoryURL = URL(string: "file:///" + #file.split(separator: "/").dropLast().joined(separator: "/") + "/Generated")!
 let engine = Engine(directoryURL)
-try engine.reset()
+//try engine.reset()
 
 //: - (Optional) Set Delegate
 class Delegate: EngineDelegate {

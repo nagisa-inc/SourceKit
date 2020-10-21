@@ -19,7 +19,7 @@ public class Engine {
         let dirpath = filepath.path.components(separatedBy: "/").dropLast().joined(separator: "/")
         delegate?.onStartRender(filepath.path)
 
-        if file.reset && FileManager.default.fileExists(atPath: filepath.absoluteString) {
+        if file.reset && FileManager.default.fileExists(atPath: filepath.path) {
             try FileManager.default.removeItem(at: filepath)
         }
 
@@ -58,7 +58,7 @@ public extension Engine {
     /// Remove destination directory
     /// - Throws:
     func reset() throws {
-        if FileManager.default.fileExists(atPath: destinationDirectory.absoluteString) {
+        if FileManager.default.fileExists(atPath: destinationDirectory.path) {
             try FileManager.default.removeItem(at: destinationDirectory)
         }
     }
