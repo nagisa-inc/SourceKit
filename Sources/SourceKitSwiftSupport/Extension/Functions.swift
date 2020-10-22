@@ -21,7 +21,7 @@ public class Init: SourceRenderable {
     public init(acl: AccessControl = SourceKitSwiftConfig.shared.accessControl,
                 members: [Member] = [],
                 autoset: Bool = false,
-                @SourceBuilder _ body: ()->SourceRenderable){
+                @SourceBuilder _ body: ()->SourceRenderable = { "" }){
         self.source = Block({
             Block("\(acl.rawValue) init", bracket: .round){
                 ForIn(members, separator: ","){ member in
