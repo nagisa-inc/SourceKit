@@ -13,7 +13,7 @@ public class Block: SourceRenderable {
 }
 
 public class BlockComment: Block {
-    public convenience init(@SourceBuilder _ contents: ()->String){
+    public convenience init(@SourceBuilder _ contents: ()->SourceRenderable){
         self.init("", open: "/**", close: "**/", contents: contents)
     }
     public convenience init(_ comment: String){
