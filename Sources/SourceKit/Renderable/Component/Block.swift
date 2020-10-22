@@ -31,7 +31,7 @@ extension Block {
     }
 }
 
-public class Block: SourceRenderable {
+open class Block: SourceRenderable {
     public let source: String
 
     public convenience init(_ head: String, bracket: Bracket, @SourceBuilder contents: ()->SourceRenderable) {
@@ -51,7 +51,7 @@ public class Block: SourceRenderable {
     }
 }
 
-public class BlockComment: Block {
+open class BlockComment: Block {
     public convenience init(@SourceBuilder _ contents: ()->SourceRenderable){
         self.init("", open: "/**", close: "**/", contents: contents)
     }
