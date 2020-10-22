@@ -34,7 +34,7 @@ extension Block {
 open class Block: SourceRenderable {
     public let source: String
 
-    public convenience init(_ head: String, bracket: Bracket, @SourceBuilder contents: ()->SourceRenderable) {
+    public convenience init(_ head: String = "", bracket: Bracket, @SourceBuilder contents: ()->SourceRenderable) {
         self.init(head, open: bracket.open, close: bracket.close, contents: contents)
     }
 
@@ -46,7 +46,7 @@ open class Block: SourceRenderable {
         source = "\(head())\(open)\n\(contents())\n\(close)"
     }
 
-    public init(_ head: String, open: String = "{", close: String = "}", @SourceBuilder contents: ()->SourceRenderable) {
+    public init(_ head: String = "", open: String = "{", close: String = "}", @SourceBuilder contents: ()->SourceRenderable) {
         source = "\(head)\(open)\n\(contents())\n\(close)"
     }
 }

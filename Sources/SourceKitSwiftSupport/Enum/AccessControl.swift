@@ -5,4 +5,5 @@ public enum AccessControl: String {
     case `private` = "private"
     case `fileprivate` = "fileprivate"
     case `open` = "open"
+    case `internal` = "internal"
 }
