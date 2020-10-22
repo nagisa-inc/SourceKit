@@ -25,7 +25,13 @@ public class Init: SourceRenderable {
         self.source = Block({
             Block("\(acl.rawValue) init", bracket: .round){
                 ForIn(members, separator: ","){ member in
-                    "\(member.name): \(member.type)\(member.optional ? "?" : "")\(member.defaultValue.map({ "= \($0)" }) ?? "")"
+                    var result = "\(member.name): \(member.type)\(member.optional ? "?" : "")"
+                    if member.optional && member.defaultNil {
+                        result += "= nil"
+                    } else if let defaultValue = member.defaultValue {
+                        result += "= \(defaultValue)"
+                    }
+                    return result
                 }
             }
         }){
