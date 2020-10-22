@@ -1,7 +1,42 @@
 import Foundation
 
+extension Block {
+    public enum Bracket {
+        /// ()
+        case round
+        /// {}
+        case curly
+        /// []
+        case square
+        /// <>
+        case angle
+
+        fileprivate var open: String {
+            switch self {
+                case .round: return "("
+                case .curly: return "{"
+                case .square: return "["
+                case .angle: return "<"
+            }
+        }
+
+        fileprivate var close: String {
+            switch self {
+                case .round: return ")"
+                case .curly: return "}"
+                case .square: return "]"
+                case .angle: return ">"
+            }
+        }
+    }
+}
+
 public class Block: SourceRenderable {
     public let source: String
+
+    public convenience init(@SourceBuilder _ head: ()->String, bracket: Bracket, @SourceBuilder contents: ()->SourceRenderable) {
+        self.init(head, open: bracket.open, close: bracket.close, contents: contents)
+    }
 
     public init(@SourceBuilder _ head: ()->String, open: String = "{", close: String = "}", @SourceBuilder contents: ()->SourceRenderable) {
         source = "\(head())\(open)\n\(contents())\n\(close)"
@@ -20,3 +55,4 @@ public class BlockComment: Block {
         self.init("", open: "/**", close: "**/", contents: { comment })
     }
 }
+
