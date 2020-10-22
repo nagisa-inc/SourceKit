@@ -7,7 +7,7 @@ public struct Member {
     public let defaultValue: String?
     public let defaultNil: Bool
 
-    public init(_ name: String, type: String, optional: Bool = false, defaultValue: String? = nil, defaultNil: Bool = false){
+    public init(_ name: String, type: String, optional: Bool = false, defaultValue: String? = nil, defaultNil: Bool = true){
         self.name = name
         self.type = type
         self.optional = optional
