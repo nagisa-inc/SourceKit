@@ -29,26 +29,26 @@ extension RHSConnectable {
 
 public class Variable: RHSConnectable {
     public var source: String
-    public init(_ name: String, acl: AccessControl = SourceKitSwiftConfig.shared.accessControl, type: String, optional: Bool){
+    public init(_ name: String, acl: AccessControl = SourceKitSwiftConfig.shared.accessControl, type: String, optional: Bool = false){
         self.source = "\(acl.rawValue) var \(name): \(type)"
     }
 }
 public class StaticVariable: RHSConnectable {
     public var source: String
-    public init(_ name: String, acl: AccessControl = SourceKitSwiftConfig.shared.accessControl, type: String, optional: Bool){
+    public init(_ name: String, acl: AccessControl = SourceKitSwiftConfig.shared.accessControl, type: String, optional: Bool = false){
         self.source = "\(acl.rawValue) static var \(name): \(type)"
     }
 }
 
 public class Constant: RHSConnectable {
     public var source: String
-    public init(_ name: String, acl: AccessControl = SourceKitSwiftConfig.shared.accessControl, type: String, optional: Bool){
+    public init(_ name: String, acl: AccessControl = SourceKitSwiftConfig.shared.accessControl, type: String, optional: Bool = false){
         self.source = "\(acl.rawValue) let \(name): \(type)"
     }
 }
 public class StaticConstant: RHSConnectable {
     public var source: String
-    public init(_ name: String, acl: AccessControl = SourceKitSwiftConfig.shared.accessControl, type: String, optional: Bool){
+    public init(_ name: String, acl: AccessControl = SourceKitSwiftConfig.shared.accessControl, type: String, optional: Bool = false){
         self.source = "\(acl.rawValue) static let \(name): \(type)"
     }
 }
