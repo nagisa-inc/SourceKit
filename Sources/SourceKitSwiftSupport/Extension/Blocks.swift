@@ -39,3 +39,13 @@ public class Enum: Block {
         super.init("\(acl.rawValue) enum \(name) \(inherits)", contents: contents)
     }
 }
+
+public class Extension: Block {
+    public init(_ name: String,
+                acl: AccessControl = SourceKitSwiftConfig.shared.accessControl,
+                protocols: [String],
+                @SourceBuilder _ contents: ()->SourceRenderable ){
+        let inherits = protocols.count == 0 ? "" : ": \(protocols.joined(separator: ","))"
+        super.init("\(acl.rawValue) extension \(name) \(inherits)", contents: contents)
+    }
+}
