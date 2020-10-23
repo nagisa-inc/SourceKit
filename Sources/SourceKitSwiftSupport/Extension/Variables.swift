@@ -30,13 +30,28 @@ extension RHSConnectable {
 public class Variable: RHSConnectable {
     public var source: String
     public init(_ name: String, acl: AccessControl = SourceKitSwiftConfig.shared.accessControl, type: String, optional: Bool = false){
-        self.source = "\(acl.rawValue) var \(name): \(type)"
+        self.source = "\(acl.rawValue) var \(name): \(type)\(optional ? "?" : "")"
     }
 }
 public class StaticVariable: RHSConnectable {
     public var source: String
+
+    private let name: String
+    private let acl: AccessControl
+    private let type: String
+    private let optional: Bool
+
     public init(_ name: String, acl: AccessControl = SourceKitSwiftConfig.shared.accessControl, type: String, optional: Bool = false){
-        self.source = "\(acl.rawValue) static var \(name): \(type)"
+        self.source = "\(acl.rawValue) static var \(name): \(type)\(optional ? "?" : "")"
+        self.name = name
+        self.acl = acl
+        self.type = type
+        self.optional = optional
+    }
+
+    public func variableGetter() -> Self {
+        self.source += "\nvar \(name): \(type)\(optional ? "?" : "") { type(of: self).\(name) }"
+        return self
     }
 }
 
@@ -48,8 +63,27 @@ public class Constant: RHSConnectable {
 }
 public class StaticConstant: RHSConnectable {
     public var source: String
+
+    private let name: String
+    private let acl: AccessControl
+    private let type: String
+    private let optional: Bool
+
     public init(_ name: String, acl: AccessControl = SourceKitSwiftConfig.shared.accessControl, type: String, optional: Bool = false){
         self.source = "\(acl.rawValue) static let \(name): \(type)"
+        self.name = name
+        self.acl = acl
+        self.type = type
+        self.optional = optional
     }
+    public func variableGetter() -> Self {
+        self.source += "\nvar \(name): \(type)\(optional ? "?" : "") { type(of: self).\(name) }"
+        return self
+    }
+
 }
 
+public typealias Var = Variable
+public typealias StaticVar = StaticVariable
+public typealias Let = Constant
+public typealias StaticLet = StaticConstant
