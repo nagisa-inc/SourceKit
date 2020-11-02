@@ -63,3 +63,18 @@ public extension Engine {
         }
     }
 }
+
+public extension Engine {
+    func copy(url: URL, to destination: String) throws {
+        let dest = destinationDirectory.appendingPathComponent(destination)
+        var isDirectory: ObjCBool = false
+        if FileManager.default.fileExists(atPath: url.path, isDirectory: &isDirectory) {
+            let dirpath = dest.path.components(separatedBy: "/").dropLast().joined(separator: "/")
+            if !FileManager.default.fileExists(atPath: dirpath) {
+                try FileManager.default.createDirectory(atPath: dirpath, withIntermediateDirectories: true, attributes: nil)
+            }
+
+            try FileManager.default.copyItem(atPath: url.path, toPath: dest.path)
+        }
+    }
+}

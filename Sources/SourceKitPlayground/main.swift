@@ -99,3 +99,13 @@ struct File3: StencilFileRenerable {
 
 try engine.render(File3(name: "HogeHoge"))
 
+//try engine.copy(url: URL(string: "file:///Users/trswkz/Work/Nagisa/SourceKit/Sources/SourceKit/Renderable/FileRenderable.swift")!, to: "Copy/FileRenderable.swift")
+
+struct File4: FileRenderable {
+    var filepath: String { "a.swift" }
+    var subfiles: [FileRenderable] {
+        [File1()]
+    }
+    var source: String { "" }
+}
+
