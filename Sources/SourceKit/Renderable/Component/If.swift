@@ -43,4 +43,10 @@ extension If {
         if self.bool { return self }
         else { return If(bool, elseValue) }
     }
+    public func `elseIf`<Value>(_ value: Value?, @SourceBuilder _ elseValue: (Value)->SourceRenderable) -> If {
+        if self.bool { return self }
+        else {
+            return If(value, elseValue)
+        }
+    }
 }

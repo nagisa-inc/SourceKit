@@ -5,9 +5,10 @@ public class Func: SourceRenderable {
     public init(_ name: String,
                 acl: AccessControl = SourceKitSwiftConfig.shared.accessControl,
                 members: [Member] = [],
+                return: String? = nil,
                 @SourceBuilder _ body: ()->SourceRenderable){
         self.source = Block({
-            Block("\(acl.rawValue) init", bracket: .round){
+            Block("\(acl.rawValue) func \(name)", bracket: .round){
                 ForIn(members, separator: ","){ member in
                     var result = "\(member.name): \(member.type)\(member.optional ? "?" : "")"
                     if member.optional && member.defaultNil {
@@ -18,7 +19,40 @@ public class Func: SourceRenderable {
                     return result
                 }
             }
-        }){}.source
+            If(`return`){ returnType in
+                "-> \(returnType)"
+            }
+        }){
+            body()
+        }.source
+    }
+}
+
+public class StaticFunc: SourceRenderable {
+    public let source: String
+    public init(_ name: String,
+                acl: AccessControl = SourceKitSwiftConfig.shared.accessControl,
+                members: [Member] = [],
+                return: String? = nil,
+                @SourceBuilder _ body: ()->SourceRenderable){
+        self.source = Block({
+            Block("\(acl.rawValue) static func \(name)", bracket: .round){
+                ForIn(members, separator: ","){ member in
+                    var result = "\(member.name): \(member.type)\(member.optional ? "?" : "")"
+                    if member.optional && member.defaultNil {
+                        result += "= nil"
+                    } else if let defaultValue = member.defaultValue {
+                        result += "= \(defaultValue)"
+                    }
+                    return result
+                }
+            }
+            If(`return`){ returnType in
+                "-> \(returnType)"
+            }
+        }){
+            body()
+        }.source
     }
 }
 
@@ -48,6 +82,7 @@ public class Init: SourceRenderable {
                     """
                 }
             }
+            body()
         }.source
     }
 }

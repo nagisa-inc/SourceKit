@@ -21,8 +21,8 @@ extension RHSConnectable {
         self.source += Block { contents().source }.source
         return self
     }
-    public func getter(_ contents: String) -> Self{
-        self.source += Block { contents }.source
+    public func getter(_ contents: SourceRenderable) -> Self{
+        self.source += Block { contents.source }.source
         return self
     }
 }

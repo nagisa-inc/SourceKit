@@ -10,3 +10,12 @@ public struct Source: SourceRenderable {
         self.source = source().source
     }
 }
+
+public struct FatalError: SourceRenderable {
+    public let message: String
+    public init(_ message: String = ""){
+        self.message = message
+    }
+
+    public var source: String { fatalError(message) }
+}

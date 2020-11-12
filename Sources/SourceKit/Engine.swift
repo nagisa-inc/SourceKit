@@ -13,7 +13,7 @@ public class Engine {
     public init(_ destinationDirectory: URL){
         self.destinationDirectory = destinationDirectory
     }
-    
+
     public func render(_ file: FileRenderable) throws {
         let filepath = destinationDirectory.appendingPathComponent(file.filepath)
         let dirpath = filepath.path.components(separatedBy: "/").dropLast().joined(separator: "/")
