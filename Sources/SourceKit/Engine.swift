@@ -59,7 +59,7 @@ public extension Engine {
     /// - Throws:
     func reset() throws {
         if FileManager.default.fileExists(atPath: destinationDirectory.path) {
-            try FileManager.default.removeItem(at: destinationDirectory)
+            try FileManager.default.removeItem(atPath: destinationDirectory.path)
         }
     }
 }
