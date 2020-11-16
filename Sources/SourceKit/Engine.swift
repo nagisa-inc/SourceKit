@@ -73,7 +73,7 @@ public extension Engine {
             if !FileManager.default.fileExists(atPath: dirpath) {
                 try FileManager.default.createDirectory(atPath: dirpath, withIntermediateDirectories: true, attributes: nil)
             }
-
+            try? FileManager.default.removeItem(atPath: url.path)
             try FileManager.default.copyItem(atPath: url.path, toPath: dest.path)
         }
     }
