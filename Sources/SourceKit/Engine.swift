@@ -3,6 +3,9 @@ import Stencil
 import SwiftFormat
 
 public protocol EngineDelegate: class {
+    func onStartCopy(from path: String, to: String)
+    func onFinishCopy(from path: String, to: String)
+
     func onStartRender(_ path: String)
     func onFinishRender(_ path: String)
 }
@@ -69,12 +72,14 @@ public extension Engine {
         let dest = destinationDirectory.appendingPathComponent(destination)
         var isDirectory: ObjCBool = false
         if FileManager.default.fileExists(atPath: url.path, isDirectory: &isDirectory) {
+            delegate?.onStartCopy(from: url.path, to: dest.path)
             let dirpath = dest.path.components(separatedBy: "/").dropLast().joined(separator: "/")
             if !FileManager.default.fileExists(atPath: dirpath) {
                 try FileManager.default.createDirectory(atPath: dirpath, withIntermediateDirectories: true, attributes: nil)
             }
             try? FileManager.default.removeItem(atPath: dest.path)
             try FileManager.default.copyItem(atPath: url.path, toPath: dest.path)
+            delegate?.onFinishCopy(from: url.path, to: dest.path)
         }
     }
 }
