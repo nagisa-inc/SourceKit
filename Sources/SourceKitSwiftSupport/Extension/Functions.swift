@@ -60,10 +60,11 @@ public class Init: SourceRenderable {
     public let source: String
     public init(acl: AccessControl = SourceKitSwiftConfig.shared.accessControl,
                 members: [Member] = [],
+                `optional`: Bool = false,
                 autoset: Bool = false,
                 @SourceBuilder _ body: ()->SourceRenderable = { "" }){
         self.source = Block({
-            Block("\(acl.rawValue) init", bracket: .round){
+            Block("\(acl.rawValue) init\(`optional` ? "?" : "")", bracket: .round){
                 ForIn(members, separator: ","){ member in
                     var result = "\(member.name): \(member.type)\(member.optional ? "?" : "")"
                     if member.optional && member.defaultNil {
