@@ -58,7 +58,7 @@ public class StaticVariable: RHSConnectable {
 public class Constant: RHSConnectable {
     public var source: String
     public init(_ name: String, acl: AccessControl = SourceKitSwiftConfig.shared.accessControl, type: String, optional: Bool = false){
-        self.source = "\(acl.rawValue) let \(name): \(type)"
+        self.source = "\(acl.rawValue) let \(name): \(type)\(optional ? "?" : "")"
     }
 }
 public class StaticConstant: RHSConnectable {
