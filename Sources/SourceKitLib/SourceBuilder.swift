@@ -8,7 +8,7 @@ extension Array: SourceRenderable where Element: SourceRenderable {
     }
 }
 
-@_functionBuilder public struct SourceBuilder {
+@resultBuilder public struct SourceBuilder {
     private static func _buildBlock(_ buildables: [SourceRenderable]) -> String {
         buildables.map{ $0.source }.joined(separator: "\n")
     }

@@ -2,7 +2,7 @@ import Foundation
 import Stencil
 import SwiftFormat
 
-public protocol EngineDelegate: class {
+public protocol EngineDelegate: AnyObject {
     func onStartCopy(from path: String, to: String)
     func onFinishCopy(from path: String, to: String)
 

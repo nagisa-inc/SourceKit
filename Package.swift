@@ -4,14 +4,13 @@
 import PackageDescription
 
 let package = Package(
-    name: "SourceKit",
+    name: "SourceKitLib",
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
-        .library(name: "SourceKit", targets: ["SourceKit"]),
-        .library(name: "SourceKitSwiftSupport", targets: ["SourceKitSwiftSupport"]),
+        .library(name: "SourceKitLib", targets: ["SourceKitLib"]),
+        .library(name: "SourceKitLibSwiftSupport", targets: ["SourceKitLibSwiftSupport"]),
         .library(name: "XCAssetKit", targets: ["XCAssetKit"]),
         .library(name: "StringsFileKit", targets: ["StringsFileKit"]),
-        .executable(name: "SourceKitPlayground", targets: ["SourceKit", "XCAssetKit", "SourceKitPlayground"])
     ],
     dependencies: [
         .package(url: "https://github.com/stencilproject/Stencil.git", from: "0.14.2"),
@@ -19,18 +18,14 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "SourceKit",
+            name: "SourceKitLib",
             dependencies: ["Stencil", "SwiftFormat"],
-            exclude: ["SourceKit/Template/Source.swift"]),
+            exclude: []),
         .target(
-            name: "SourceKitSwiftSupport",
-            dependencies: ["SourceKit"]
+            name: "SourceKitLibSwiftSupport",
+            dependencies: ["SourceKitLib"]
         ),
         .target(name: "XCAssetKit"),
-        .target(name: "StringsFileKit"),
-        
-        .target(name: "SourceKitPlayground",
-                dependencies: ["SourceKit", "XCAssetKit", "StringsFileKit"],
-                exclude: ["SourceKitPlayground/Generated"])
+        .target(name: "StringsFileKit")
     ]
 )
