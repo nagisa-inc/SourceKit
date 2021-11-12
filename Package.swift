@@ -14,7 +14,7 @@ let package = Package(
         .executable(name: "SourceKitPlayground", targets: ["SourceKit", "XCAssetKit", "SourceKitPlayground"])
     ],
     dependencies: [
-        .package(url: "https://github.com/stencilproject/Stencil.git", from: Version(0, 13, 0)),
+        .package(url: "https://github.com/stencilproject/Stencil.git", from: "0.14.2"),
         .package(url: "https://github.com/nicklockwood/SwiftFormat.git", from: "0.44.13"),
     ],
     targets: [
