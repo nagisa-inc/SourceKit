@@ -1,5 +1,5 @@
 import Foundation
-import SourceKit
+import SourceKitLib
 import XCAssetKit
 import StringsFileKit
 

@@ -1,7 +1,7 @@
 import Foundation
-import SourceKit
+import SourceKitLib
 
-public protocol RHSConnectable: class, SourceRenderable {
+public protocol RHSConnectable: AnyObject, SourceRenderable {
     var source: String { get set }
 }
 

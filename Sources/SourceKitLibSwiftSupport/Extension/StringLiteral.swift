@@ -1,5 +1,5 @@
 import Foundation
-import SourceKit
+import SourceKitLib
 
 public struct StringLiteral: SourceRenderable {
     public var source: String

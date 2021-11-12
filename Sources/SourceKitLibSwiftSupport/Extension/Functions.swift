@@ -1,4 +1,4 @@
-import SourceKit
+import SourceKitLib
 
 public class Func: SourceRenderable {
     public let source: String

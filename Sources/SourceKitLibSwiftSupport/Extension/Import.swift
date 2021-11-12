@@ -1,4 +1,4 @@
-import SourceKit
+import SourceKitLib
 
 public class Import: SourceRenderable {
     public var source: String

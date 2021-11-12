@@ -1,4 +1,4 @@
-import SourceKit
+import SourceKitLib
 
 public class Struct: Block {
     public init(_ name: String,
